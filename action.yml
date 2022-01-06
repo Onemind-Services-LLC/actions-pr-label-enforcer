@@ -1,0 +1,15 @@
+name: 'Pull Request Label Enforcer'
+author: 'Onemind Services LLC'
+description: 'Verify that the PR has at least one label'
+branding:
+  icon: 'check'
+  color: 'gray-dark'
+inputs:
+  github-token:
+    description: 'The GitHub token'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.github-token }}
