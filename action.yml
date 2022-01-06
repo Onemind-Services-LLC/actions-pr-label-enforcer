@@ -8,8 +8,13 @@ inputs:
   github-token:
     description: 'The GitHub token'
     required: true
+  fail-check:
+    description: 'Fails the action check'
+    required: false
+    default: 'true'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.github-token }}
+    - ${{ inputs.fail-check }}

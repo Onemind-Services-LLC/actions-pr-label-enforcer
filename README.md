@@ -33,6 +33,10 @@ set this value to 2.
 
 **Required** The GitHub token.
 
+### `fail-check`
+
+Fails the action check on error
+
 ## Example usage
 
 In your workflow YAML file add this step:

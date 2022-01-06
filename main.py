@@ -19,6 +19,7 @@ token = sys.argv[1]
 
 repo_name = get_env("GITHUB_REPOSITORY")
 ref = get_env("GITHUB_REF")
+fail_check = sys.argv[2]
 
 # Create a repository object, using the GitHub token
 repo = Github(token).get_repo(repo_name)
@@ -53,3 +54,6 @@ else:
     # If there were no labels, then create a pull request review, requesting changes
     print(f'Error! This pull request does not contain any of the valid labels: {pr_labels}')
     pr.create_review(body='This pull request does not contain a label.', event='REQUEST_CHANGES')
+
+    if fail_check.lower() == "true":
+        exit(1)
