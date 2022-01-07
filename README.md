@@ -35,7 +35,11 @@ set this value to 2.
 
 ### `fail-check`
 
-Fails the action check on error
+Fails the action check on error (default: true)
+
+### `min-labels`
+
+Minimum number of labels needed on the PR (default: 1)
 
 ## Example usage
 

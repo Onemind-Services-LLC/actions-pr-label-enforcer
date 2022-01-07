@@ -20,6 +20,7 @@ token = sys.argv[1]
 repo_name = get_env("GITHUB_REPOSITORY")
 ref = get_env("GITHUB_REF")
 fail_check = sys.argv[2]
+min_labels = int(sys.argv[3])
 
 # Create a repository object, using the GitHub token
 repo = Github(token).get_repo(repo_name)
@@ -45,7 +46,7 @@ pr_labels = pr.get_labels()
 # This will prevent merging the pull request until a valid label is added, which will trigger this check again
 # and will create a new pull request review, but in this case marked as "APPROVE"
 
-if pr_labels.totalCount >= 1:
+if pr_labels.totalCount >= min_labels:
     # If there were valid labels, then create a pull request review, approving it
     print(f"Success! This pull request contains the {pr_labels.totalCount} labels.")
     pr.create_review(event="APPROVE")
