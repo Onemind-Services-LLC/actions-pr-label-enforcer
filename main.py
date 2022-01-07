@@ -47,12 +47,12 @@ pr_labels = pr.get_labels()
 
 if pr_labels.totalCount >= 1:
     # If there were valid labels, then create a pull request review, approving it
-    print(f'Success! This pull request contains the following valid labels: {pr_labels}')
+    print(f'Success! This pull request contains the {pr_labels.totalCount} labels.')
     pr.create_review(body='This pull request contains a valid label.', event='APPROVE')
     pr.create_review(event='APPROVE')
 else:
     # If there were no labels, then create a pull request review, requesting changes
-    print(f'Error! This pull request does not contain any of the valid labels: {pr_labels}')
+    print(f'Error! This pull request does not contain any of the labels')
     pr.create_review(body='This pull request does not contain a label.', event='REQUEST_CHANGES')
 
     if fail_check.lower() == "true":
