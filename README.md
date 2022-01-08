@@ -41,13 +41,17 @@ Fails the action check on error (default: true)
 
 Minimum number of labels needed on the PR (default: 1)
 
+### `regex`
+
+Regular expression to check for in the labels (default: "")
+
 ## Example usage
 
 In your workflow YAML file add this step:
 ```yaml
 uses: Onemind-Services-LLC/actions-pr-label-enforcer@v1
 with:
-    github-token: '${{ secrets.GITHUB_TOKEN }}'
+    github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 and trigger it with:

@@ -16,6 +16,10 @@ inputs:
     description: "Minimum number of labels needed on the PR"
     required: false
     default: "1"
+  regex:
+    description: "Regular expression to check for in the labels"
+    required: false
+    default: ""
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -23,3 +27,4 @@ runs:
     - ${{ inputs.github-token }}
     - ${{ inputs.fail-check }}
     - ${{ inputs.min-labels }}
+    - ${{ inputs.regex }}

@@ -21,6 +21,7 @@ repo_name = get_env("GITHUB_REPOSITORY")
 ref = get_env("GITHUB_REF")
 fail_check = sys.argv[2]
 min_labels = int(sys.argv[3])
+regex = sys.argv[4]
 
 # Create a repository object, using the GitHub token
 repo = Github(token).get_repo(repo_name)
@@ -47,6 +48,18 @@ pr_labels = pr.get_labels()
 # and will create a new pull request review, but in this case marked as "APPROVE"
 
 if pr_labels.totalCount >= min_labels:
+    if regex != "":
+        valid = False
+        for label in pr_labels:
+            if re.match(regex, label.name):
+                valid = True
+        if not valid:
+            print(f"Error! This pull request does not contain any of the labels")
+            pr.create_review(body=f"This pull request does not contain a label with {regex}", event="REQUEST_CHANGES")
+            if fail_check.lower() == "true":
+                exit(1)
+            else:
+                exit(0)
     # If there were valid labels, then create a pull request review, approving it
     print(f"Success! This pull request contains the {pr_labels.totalCount} labels.")
     pr.create_review(event="APPROVE")
