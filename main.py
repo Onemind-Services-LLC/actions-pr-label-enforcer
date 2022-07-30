@@ -28,7 +28,7 @@ repo = Github(token).get_repo(repo_name)
 
 # Try to extract the pull request number from the GitHub reference.
 try:
-    pr_number = int(re.search("refs/pull/([0-9]+)/merge", ref).group(1))
+    pr_number = int(re.search("refs/pull/([0-9]+)/merge", ref)[1])
     print(f"Pull request number: {pr_number}")
 except AttributeError:
     raise ValueError(f"The Pull request number could not be extracted from the GITHUB_REF = {ref}")
@@ -54,7 +54,7 @@ if pr_labels.totalCount >= min_labels:
             if re.match(regex, label.name):
                 valid = True
         if not valid:
-            print(f"Error! This pull request does not contain any of the labels")
+            print("Error! This pull request does not contain any of the labels")
             pr.create_review(body=f"This pull request does not contain a label with {regex}", event="REQUEST_CHANGES")
             if fail_check.lower() == "true":
                 exit(1)
@@ -65,7 +65,7 @@ if pr_labels.totalCount >= min_labels:
     pr.create_review(event="APPROVE")
 else:
     # If there were no labels, then create a pull request review, requesting changes
-    print(f"Error! This pull request does not contain any of the labels")
+    print("Error! This pull request does not contain any of the labels")
     pr.create_review(body="This pull request does not contain a label.", event="REQUEST_CHANGES")
 
     if fail_check.lower() == "true":
